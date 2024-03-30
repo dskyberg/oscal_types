@@ -3,12 +3,22 @@ use std::ops::Deref;
 use std::str::FromStr;
 
 use super::nc_name::NCName;
-use crate::Error;
+use crate::{Base, Error};
 
 /// Wrapper for NCName
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct TokenDatatype(NCName);
+
+impl Base for TokenDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl TokenDatatype {
     fn new_if_valid(value: &str) -> Result<Self, Error> {

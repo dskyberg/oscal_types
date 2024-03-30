@@ -4,11 +4,21 @@ use serde::{Deserialize, Serialize};
 use std::ops::Deref;
 use uuid::Uuid;
 
-use crate::{Error, Validate};
+use crate::{Base, Error, Validate};
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct UUIDDatatype(String);
+
+impl Base for UUIDDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl UUIDDatatype {
     pub fn new() -> Self {

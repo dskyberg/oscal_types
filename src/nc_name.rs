@@ -2,11 +2,20 @@ use serde::{Deserialize, Deserializer, Serialize};
 use std::ops::Deref;
 use std::str::FromStr;
 
-use crate::Error;
+use crate::{Base, Error};
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(transparent)]
 pub struct NCName(String);
+
+impl Base for NCName {
+    fn base_type() -> String {
+        String::from("String")
+    }
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl NCName {
     /// Returns `true` if `c` is a legal `NCNameStartChar` as defined

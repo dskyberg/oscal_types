@@ -1,12 +1,23 @@
 use serde::{Deserialize, Serialize};
 use std::ops::Deref;
 
-use crate::Error;
+use crate::{Base, Error};
+
 use std::str::FromStr;
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct StringDatatype(String);
+
+impl Base for StringDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl StringDatatype {
     fn new_if_valid(value: &str) -> Result<Self, Error> {
@@ -39,6 +50,17 @@ impl FromStr for StringDatatype {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct Base64Datatype(String);
+
+impl Base for Base64Datatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
+
 impl Deref for Base64Datatype {
     type Target = str;
     fn deref(&self) -> &Self::Target {
@@ -63,6 +85,16 @@ impl FromStr for Base64Datatype {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct EmailAddress(String);
+
+impl Base for EmailAddress {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl Deref for EmailAddress {
     type Target = str;

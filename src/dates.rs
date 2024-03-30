@@ -7,13 +7,22 @@ use chrono::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::{ops::Deref, str::FromStr};
 
-use crate::Error;
+use crate::{Base, Error};
 
 /// A Naive date with no timezone.
 /// All dates are UTC based.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct DateDatatype(String);
+
+impl Base for DateDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl DateDatatype {
     /// Create a new date.
@@ -53,6 +62,14 @@ impl ToString for DateDatatype {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct DateTimeDatatype(String);
+impl Base for DateTimeDatatype {
+    fn base_type() -> String {
+        String::from("str")
+    }
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl TryFrom<&str> for DateTimeDatatype {
     type Error = Error;
@@ -74,6 +91,14 @@ impl FromStr for DateTimeDatatype {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct DateTimeWithTimezoneDatatype(String);
+impl Base for DateTimeWithTimezoneDatatype {
+    fn base_type() -> String {
+        String::from("str")
+    }
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl DateTimeWithTimezoneDatatype {
     pub fn new() -> Self {
@@ -114,28 +139,36 @@ impl FromStr for DateTimeWithTimezoneDatatype {
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
-pub struct DateTimeDuration(String);
+pub struct DateTimeDurationDatatype(String);
+impl Base for DateTimeDurationDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
-impl DateTimeDuration {
+impl DateTimeDurationDatatype {
     pub fn new() -> Self {
         let utc: DateTime<Utc> = Utc::now();
         Self(utc.to_string())
     }
 }
-impl Default for DateTimeDuration {
+impl Default for DateTimeDurationDatatype {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl Deref for DateTimeDuration {
+impl Deref for DateTimeDurationDatatype {
     type Target = str;
     fn deref(&self) -> &Self::Target {
         &self.0
     }
 }
 
-impl From<&str> for DateTimeDuration {
+impl From<&str> for DateTimeDurationDatatype {
     fn from(value: &str) -> Self {
         Self(value.to_string())
     }

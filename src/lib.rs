@@ -1,3 +1,4 @@
+pub use base::*;
 pub use boolean::*;
 pub use dates::*;
 pub use error::Error;
@@ -8,6 +9,7 @@ pub use uris::*;
 pub use uuid::*;
 pub use validate::*;
 
+pub mod base;
 pub mod boolean;
 pub mod dates;
 pub mod error;

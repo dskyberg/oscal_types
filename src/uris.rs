@@ -2,13 +2,23 @@ use fluent_uri::Uri;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
-use crate::{Error, Validate};
+use crate::{Base, Error, Validate};
 
 /// Repesents an absolute URI, with schema.  For relative paths,
 /// use [URIReferenceDatatype].
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(transparent)]
 pub struct URIDatatype(Uri<String>);
+
+impl Base for URIDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
 
 impl URIDatatype {
     fn new_if_valid(value: &str) -> Result<Self, Error> {
