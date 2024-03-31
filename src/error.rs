@@ -22,4 +22,6 @@ pub enum Error {
     FailedDowncast(&'static str),
     #[error("JSON Parse error: {0}")]
     JsonParse(String),
+    #[error("Not a recognized type: {0}")]
+    UnrecognizedTypeName(String),
 }

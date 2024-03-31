@@ -56,6 +56,16 @@ impl Validate for URIDatatype {
 #[serde(transparent)]
 pub struct URIReferenceDatatype(Uri<String>);
 
+impl Base for URIReferenceDatatype {
+    fn base_type() -> String {
+        String::from("String")
+    }
+
+    fn ref_type() -> String {
+        String::from("&str")
+    }
+}
+
 impl URIReferenceDatatype {
     fn new_if_valid(value: &str) -> Result<Self, Error> {
         Ok(Self(value.parse::<Uri<String>>()?))
