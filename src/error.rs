@@ -12,16 +12,10 @@ pub enum Error {
     UriParse(#[from] fluent_uri::ParseError),
     #[error("URI must be absolute")]
     UriAbsolute,
-    #[error("Invalid Token")]
-    InvaidToken,
     #[error("NCName illegal first char")]
     NCNameIllegalFirstChar,
     #[error("NCName illegal  char")]
     NCNameIllegalChar,
-    #[error("Failed downcast {0}")]
-    FailedDowncast(&'static str),
-    #[error("JSON Parse error: {0}")]
-    JsonParse(String),
     #[error("Not a recognized type: {0}")]
     UnrecognizedTypeName(String),
 }
