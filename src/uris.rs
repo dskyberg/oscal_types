@@ -16,7 +16,7 @@ impl Base for URIDatatype {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
@@ -62,7 +62,7 @@ impl Base for URIReferenceDatatype {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 

@@ -13,7 +13,7 @@ impl Base for NCName {
         String::from("String")
     }
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 

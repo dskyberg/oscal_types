@@ -16,7 +16,7 @@ impl Base for TokenDatatype {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 

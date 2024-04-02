@@ -16,7 +16,7 @@ impl Base for UUIDDatatype {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 

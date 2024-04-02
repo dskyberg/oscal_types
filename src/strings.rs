@@ -15,7 +15,7 @@ impl Base for StringDatatype {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
@@ -57,7 +57,7 @@ impl Base for Base64Datatype {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
@@ -92,7 +92,7 @@ impl Base for EmailAddress {
     }
 
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 

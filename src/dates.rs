@@ -20,7 +20,7 @@ impl Base for DateDatatype {
         String::from("String")
     }
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
@@ -67,7 +67,7 @@ impl Base for DateTimeDatatype {
         String::from("str")
     }
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
@@ -96,7 +96,7 @@ impl Base for DateTimeWithTimezoneDatatype {
         String::from("str")
     }
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
@@ -145,7 +145,7 @@ impl Base for DateTimeDurationDatatype {
         String::from("String")
     }
     fn ref_type() -> String {
-        String::from("&str")
+        String::from("str")
     }
 }
 
