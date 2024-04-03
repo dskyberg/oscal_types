@@ -84,9 +84,9 @@ impl FromStr for Base64Datatype {
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
-pub struct EmailAddress(String);
+pub struct EmailAddressDatatype(String);
 
-impl Base for EmailAddress {
+impl Base for EmailAddressDatatype {
     fn base_type() -> String {
         String::from("String")
     }
@@ -96,21 +96,21 @@ impl Base for EmailAddress {
     }
 }
 
-impl Deref for EmailAddress {
+impl Deref for EmailAddressDatatype {
     type Target = str;
     fn deref(&self) -> &Self::Target {
         &self.0
     }
 }
 
-impl TryFrom<&str> for EmailAddress {
+impl TryFrom<&str> for EmailAddressDatatype {
     type Error = Error;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         Ok(Self(String::from(value)))
     }
 }
 
-impl FromStr for EmailAddress {
+impl FromStr for EmailAddressDatatype {
     type Err = Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::try_from(s)
