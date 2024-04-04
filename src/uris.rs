@@ -6,9 +6,11 @@ use crate::{Base, Error, Validate};
 
 /// Repesents an absolute URI, with schema.  For relative paths,
 /// use [URIReferenceDatatype].
+///
+/// URIDatatype uses [fluent_uri] for validation.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(transparent)]
-pub struct URIDatatype(Uri<String>);
+pub struct URIDatatype(String);
 
 impl Base for URIDatatype {
     fn base_type() -> String {
@@ -20,20 +22,11 @@ impl Base for URIDatatype {
     }
 }
 
-impl URIDatatype {
-    fn new_if_valid(value: &str) -> Result<Self, Error> {
-        let uri = value.parse::<Uri<String>>()?;
-        match uri.is_absolute() {
-            true => Ok(Self(uri)),
-            false => Err(Error::UriAbsolute),
-        }
-    }
-}
-
 impl TryFrom<&str> for URIDatatype {
     type Error = Error;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        Self::new_if_valid(value)
+        Self::validate(value)?;
+        Ok(Self(value.to_owned()))
     }
 }
 
@@ -41,20 +34,23 @@ impl FromStr for URIDatatype {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Self::new_if_valid(s)
+        Self::try_from(s)
     }
 }
 
 impl Validate for URIDatatype {
     fn validate(value: &str) -> Result<(), Error> {
-        let _ = Self::new_if_valid(value)?;
-        Ok(())
+        let uri = value.parse::<Uri<String>>()?;
+        match uri.is_absolute_uri() {
+            true => Ok(()),
+            false => Err(Error::UriAbsolute),
+        }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(transparent)]
-pub struct URIReferenceDatatype(Uri<String>);
+pub struct URIReferenceDatatype(String);
 
 impl Base for URIReferenceDatatype {
     fn base_type() -> String {
@@ -66,16 +62,11 @@ impl Base for URIReferenceDatatype {
     }
 }
 
-impl URIReferenceDatatype {
-    fn new_if_valid(value: &str) -> Result<Self, Error> {
-        Ok(Self(value.parse::<Uri<String>>()?))
-    }
-}
-
 impl TryFrom<&str> for URIReferenceDatatype {
     type Error = Error;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        Self::new_if_valid(value)
+        Self::validate(value)?;
+        Ok(Self(value.to_owned()))
     }
 }
 
@@ -83,7 +74,14 @@ impl FromStr for URIReferenceDatatype {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Self::new_if_valid(s)
+        Self::try_from(s)
+    }
+}
+
+impl Validate for URIReferenceDatatype {
+    fn validate(value: &str) -> Result<(), Error> {
+        let _ = value.parse::<Uri<String>>()?;
+        Ok(())
     }
 }
 
