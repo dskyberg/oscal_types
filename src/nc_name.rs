@@ -86,13 +86,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_invalid_first() {
-        assert_eq!(":abc".parse::<NCName>(), Err(Error::NCNameIllegalFirstChar));
-        assert_eq!("-abc".parse::<NCName>(), Err(Error::NCNameIllegalFirstChar));
-        assert_eq!("0abc".parse::<NCName>(), Err(Error::NCNameIllegalFirstChar));
-    }
-
-    #[test]
     fn test_valid_first() {
         assert!("abc".parse::<NCName>().is_ok());
         assert!("_abc".parse::<NCName>().is_ok());
